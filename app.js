@@ -1,66 +1,99 @@
-// Importamos las dependencias necesarias
-const express = require('express');
-const bodyParser = require('body-parser');
-const { Pool } = require('pg');
-const path = require('path');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const { Pool } = require("pg");
+const path = require("path");
 
-// Configuración de la conexión a la base de datos
+const app = express();
+const port = process.env.PORT || 7898;
+
+// Configuración de la conexión a PostgreSQL
 const pool = new Pool({
-  host: '172.16.10.21',
-  database: 'Encuesta',
-  user: 'postgres',
-  password: 'postgres',
-  port: 5445
+  host: process.env.DB_HOST || "172.16.10.21",
+  database: process.env.DB_NAME || "Encuesta",
+  user: process.env.DB_USER || "postgres",
+  password: process.env.DB_PASSWORD || "postgres",
+  port: process.env.DB_PORT || 5445,
 });
 
-// Configuramos el servidor Express
-const app = express();
-const port = 7898;
-
-// Middleware para procesar datos JSON y formularios
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// Middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Ruta principal que devuelve el formulario HTML
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Ruta para manejar la sumisión del formulario
-app.post('/submit', async (req, res) => {
-  const {
-    name,
-    id,
-    email,
-    phone,
-    date,
-    route,
-    human_aux,
-    human_agents,
-    human_drivers,
-    info_aux,
-    info_agents,
-    info_drivers,
-    service_experience,
-    suggestions
-  } = req.body;
-
+app.post("/submit", async (req, res) => {
   try {
-    // Insertamos los datos en la base de datos
+    const {
+      name,
+      id,
+      email,
+      phone,
+      date,
+      route,
+      human_aux,
+      human_agents,
+      human_drivers,
+      info_aux,
+      info_agents,
+      info_drivers,
+      service_experience,
+      suggestions,
+    } = req.body;
+
+    if (!name || !id || !email || !phone || !date || !route) {
+      return res
+        .status(400)
+        .json({ error: "Todos los campos obligatorios deben estar llenos." });
+    }
+
     await pool.query(
-      `INSERT INTO surveys (name, id, email, phone, date, route, human_aux, human_agents, human_drivers, info_aux, info_agents, info_drivers, service_experience, suggestions)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
-      [name, id, email, phone, date, route, human_aux, human_agents, human_drivers, info_aux, info_agents, info_drivers, service_experience, suggestions]
+      `INSERT INTO surveys (name, id, email, phone, date, route, 
+        human_aux, human_agents, human_drivers, 
+        info_aux, info_agents, info_drivers, 
+        service_experience, suggestions)
+       VALUES ($1, $2, $3, $4, $5, $6, 
+        $7, $8, $9, $10, $11, $12, $13, $14)`,
+      [
+        name,
+        id,
+        email,
+        phone,
+        date,
+        route,
+        human_aux,
+        human_agents,
+        human_drivers,
+        info_aux,
+        info_agents,
+        info_drivers,
+        service_experience,
+        suggestions,
+      ]
     );
-    res.send('Gracias por completar la encuesta. ¡Tus respuestas han sido registradas!');
+
+    res.json({
+      message:
+        "Gracias por completar la encuesta. ¡Tus respuestas han sido registradas!",
+    });
   } catch (error) {
-    console.error('Error al insertar datos:', error);
-    res.status(500).send('Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.');
+    console.error("Error al insertar datos:", error);
+    res
+      .status(500)
+      .json({
+        error:
+          "Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.",
+      });
   }
 });
 
-// Iniciamos el servidor
+// Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
