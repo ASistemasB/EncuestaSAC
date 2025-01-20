@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Satisfacción</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .section {
+            display: none;
+            margin-bottom: 20px;
+        }
+        .section.active {
+            display: block;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="email"], input[type="date"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="image-section">
+        <img src="https://www.digitarianos.co/wp-content/uploads/2023/02/Berlinas-del-fonce-1.jpg" alt="Berlinas del Fonce" style="width:100%; max-width:600px;">
+    </div>
+
+    <div class="form-section">
+        <h1>Encuesta de Satisfacción</h1>
+        <form id="surveyForm">
+        
+            <!-- Primera Sección: Datos Personales -->
+            <div class="section active" id="section1">
+                <h2>Datos Personales</h2>
+                <label for="name">Nombres y Apellidos:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="id">Documento de Identidad:</label>
+                <input type="text" id="id" name="id" required>
+                
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="phone">Número de Celular:</label>
+                <input type="text" id="phone" name="phone" required>
+                
+                <label for="date">Fecha de viaje:</label>
+                <input type="date" id="date" name="date" required>
+                
+                <label for="route">Origen - Destino del viaje:</label>
+                <input type="text" id="route" name="route" required>
+                
+                <button type="button" id="next1">Siguiente</button>
+            </div>
+            
+            <!-- Segunda Sección: Preguntas de Factor Humano -->
+            <div class="section" id="section2">
+                <h2>Factor Humano</h2>
+                <label for="human_aux">1. ¿Qué opinas sobre el trato, la calidad humana y la amabilidad mostrada por el personal mencionado a continuación? [Auxiliares de Venta (taquillas/oficinas)]</label>
+                <textarea id="human_aux" name="human_aux" required></textarea>
+                
+                <label for="human_agents">2. ¿Qué opinas sobre el trato, la calidad humana y la amabilidad mostrada por el personal mencionado a continuación? [Agentes de Servicio al Cliente (telefónico)]</label>
+                <textarea id="human_agents" name="human_agents" required></textarea>
+                
+                <label for="human_drivers">3. ¿Qué opinas sobre el trato, la calidad humana y la amabilidad mostrada por el personal mencionado a continuación? [Conductores]</label>
+                <textarea id="human_drivers" name="human_drivers" required></textarea>
+                
+                <button type="button" id="prev2">Anterior</button>
+                <button type="button" id="next2">Siguiente</button>
+            </div>
+
+            <!-- Tercera Sección: Preguntas de Información y Comunicación -->
+            <div class="section" id="section3">
+                <h2>Información/Comunicación</h2>
+                <label for="info_aux">1. La información y comunicación brindada por el personal que a continuación indicamos fue: [Auxiliares de Venta (taquillas/oficinas)]</label>
+                <textarea id="info_aux" name="info_aux" required></textarea>
+                
+                <label for="info_agents">2. La información y comunicación brindada por el personal que a continuación indicamos fue: [Agentes de Servicio al Cliente (telefónico)]</label>
+                <textarea id="info_agents" name="info_agents" required></textarea>
+                
+                <label for="info_drivers">3. La información y comunicación brindada por el personal que a continuación indicamos fue: [Conductores]</label>
+                <textarea id="info_drivers" name="info_drivers" required></textarea>
+                
+                <button type="button" id="prev3">Anterior</button>
+                <button type="button" id="next3">Siguiente</button>
+            </div>
+
+            <!-- Cuarta Sección: Experiencia de Servicio -->
+            <div class="section" id="section4">
+                <h2>Experiencia de Servicio</h2>
+                <label for="service_experience">1. ¿Cómo calificas la experiencia general respecto al servicio de transporte prestado?</label>
+                <textarea id="service_experience" name="service_experience" required></textarea>
+                
+                <label for="suggestions">¿Tienes alguna idea para mejorar nuestro servicio?</label>
+                <textarea id="suggestions" name="suggestions" required></textarea>
+                
+                <button type="button" id="prev4">Anterior</button>
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const sections = document.querySelectorAll('.section');
+    const nextButtons = document.querySelectorAll('button[id^="next"]');
+    const prevButtons = document.querySelectorAll('button[id^="prev"]');
+
+    nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const currentSection = document.querySelector('.section.active');
+            let valid = true;
+            
+            if(currentSection) {
+                const inputs = currentSection.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    if (!input.validity.valid) {
+                        valid = false;
+                    }
+                });
+
+                if (valid) {
+                    currentSection.classList.remove('active');
+                    const nextSection = currentSection.nextElementSibling;
+                    if (nextSection) {
+                        nextSection.classList.add('active');
+                    }
+                } else {
+                    alert('Por favor completa todos los campos.');
+                }
+            }
+        });
+    });
+
+    prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const currentSection = document.querySelector('.section.active');
+            currentSection.classList.remove('active');
+            const prevSection = currentSection.previousElementSibling;
+            if (prevSection) {
+                prevSection.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
