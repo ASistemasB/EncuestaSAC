@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Satisfacción</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .section {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            display: flex;
+            direction: row-reverse;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .stars input:checked~label,
+        .stars label:hover,
+        .stars label:hover~label {
+            color: gold;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Encuesta de Satisfacción</h1>
+        <form id="surveyForm">
+
+            <!-- Sección 1: Datos Personales -->
+            <div class="section active" id="section1">
+                <h2>Datos Personales</h2>
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="Nombre Completo" name="name" id='name'
+                        required />
+                    <label for="name" class="form__label">Nombre Completo</label>
+                </div>
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="Documento" name="Documento" id='Documento'
+                        required />
+                    <label for="Documento" class="form__label">Documento</label>
+                </div>
+                <div class="form__group field">
+                    <input type="email" class="form__field" placeholder="Correo Electronico" name="mail" id='mail'
+                        required />
+                    <label for="mail" class="form__label">Correo Electronico</label>
+                </div>
+
+                <div class="form__group field">
+                    <input type="number" class="form__field" placeholder="Numero de Celular" name="phone" id='phone'
+                        required />
+                    <label for="phone" class="form__label">Numero de Celular</label>
+                </div>
+
+                <div class="form__group field">
+                    <input type="date" class="form__field" placeholder="Fecha de Viaje" name="date" id='date'
+                        required />
+                    <label for="date" class="form__label">Fecha de Viaje</label>
+                </div>
+
+                <button type="button" id="next1">Siguiente</button>
+            </div>
+
+            <!-- Sección 2: Factor Humano -->
+            <div class="section" id="section2">
+                <h2>Factor Humano</h2>
+                <label>El trato, la calidad humana y la amabilidad brindada por el personal fue:</label>
+                <div class="rating">
+                    <label>Auxiliares de Venta:</label>
+                    <div class="stars">
+                        <input type="radio" id="aux_venta_5" name="aux_venta" value="1" required>
+                        <label for="aux_venta_5">★</label>
+                        <input type="radio" id="aux_venta_4" name="aux_venta" value="2">
+                        <label for="aux_venta_4">★</label>
+                        <input type="radio" id="aux_venta_3" name="aux_venta" value="3">
+                        <label for="aux_venta_3">★</label>
+                        <input type="radio" id="aux_venta_2" name="aux_venta" value="4">
+                        <label for="aux_venta_2">★</label>
+                        <input type="radio" id="aux_venta_1" name="aux_venta" value="5">
+                        <label for="aux_venta_1">★</label>
+                    </div>
+                </div>
+                <div class="rating">
+                    <label>Agentes de Servicio:</label>
+                    <div class="stars">
+                        <input type="radio" id="agn_service_5" name="agn_service" value="5" required>
+                        <label for="agn_service_5">★</label>
+                        <input type="radio" id="agn_service_4" name="agn_service" value="4">
+                        <label for="agn_service_4">★</label>
+                        <input type="radio" id="agn_service_3" name="agn_service" value="3">
+                        <label for="agn_service_3">★</label>
+                        <input type="radio" id="agn_service_2" name="agn_service" value="2">
+                        <label for="agn_service_2">★</label>
+                        <input type="radio" id="agn_service_1" name="agn_service" value="1">
+                        <label for="agn_service_1">★</label>
+                    </div>
+                </div>
+                <div class="rating">
+                    <label>Conductores:</label>
+                    <div class="stars">
+                        <input type="radio" id="conductores_5" name="conductores" value="5" required>
+                        <label for="conductores_5">★</label>
+                        <input type="radio" id="conductores_4" name="conductores" value="4">
+                        <label for="conductores_4">★</label>
+                        <input type="radio" id="conductores_3" name="conductores" value="3">
+                        <label for="conductores_3">★</label>
+                        <input type="radio" id="conductores_2" name="conductores" value="2">
+                        <label for="conductores_2">★</label>
+                        <input type="radio" id="conductores_1" name="conductores" value="1">
+                        <label for="conductores_1">★</label>
+                    </div>
+                </div>
+                <button type="button" id="prev2">Anterior</button>
+                <button type="button" id="next2">Siguiente</button>
+            </div>
+
+            <!-- Sección 3: Información y Comunicación -->
+            <div class="section" id="section3">
+                <h2>Información/Comunicación</h2>
+                <label>¿Cómo calificas la experiencia general respecto al servicio de transporte prestado?</label>
+                <div class="rating">
+                    <label>Auxiliares de Venta:</label>
+                    <div class="stars">
+                        <input type="radio" id="aux_venta2_5" name="aux_venta2" value="5" required>
+                        <label for="aux_venta2_5">★</label>
+                        <input type="radio" id="aux_venta2_4" name="aux_venta2" value="4">
+                        <label for="aux_venta2_4">★</label>
+                        <input type="radio" id="aux_venta2_3" name="aux_venta2" value="3">
+                        <label for="aux_venta2_3">★</label>
+                        <input type="radio" id="aux_venta2_2" name="aux_venta2" value="2">
+                        <label for="aux_venta2_2">★</label>
+                        <input type="radio" id="aux_venta2_1" name="aux_venta2" value="1">
+                        <label for="aux_venta2_1">★</label>
+                    </div>
+                </div>
+                <div class="rating">
+                    <label>Agentes de Servicio:</label>
+                    <div class="stars">
+                        <input type="radio" id="agn_service2_5" name="agn_service2" value="5" required>
+                        <label for="agn_service2_5">★</label>
+                        <input type="radio" id="agn_service2_4" name="agn_service2" value="4">
+                        <label for="agn_service2_4">★</label>
+                        <input type="radio" id="agn_service2_3" name="agn_service2" value="3">
+                        <label for="agn_service2_3">★</label>
+                        <input type="radio" id="agn_service2_2" name="agn_service2" value="2">
+                        <label for="agn_service2_2">★</label>
+                        <input type="radio" id="agn_service2_1" name="agn_service2" value="1">
+                        <label for="agn_service2_1">★</label>
+                    </div>
+                </div>
+                <div class="rating">
+                    <label>Conductores:</label>
+                    <div class="stars">
+                        <input type="radio" id="conductores2_5" name="conductores2" value="5" required>
+                        <label for="conductores2_5">★</label>
+                        <input type="radio" id="conductores2_4" name="conductores2" value="4">
+                        <label for="conductores2_4">★</label>
+                        <input type="radio" id="conductores2_3" name="conductores2" value="3">
+                        <label for="conductores2_3">★</label>
+                        <input type="radio" id="conductores2_2" name="conductores2" value="2">
+                        <label for="conductores2_2">★</label>
+                        <input type="radio" id="conductores2_1" name="conductores2" value="1">
+                        <label for="conductores2_1">★</label>
+                    </div>
+                </div>
+                <button type="button" id="prev3">Anterior</button>
+                <button type="button" id="next3">Siguiente</button>
+            </div>
+
+            <!-- Sección 4: Experiencia de Servicio -->
+            <div class="section" id="section4">
+                <h2>Experiencia de Servicio</h2>
+                <label>¿Cómo calificas la experiencia general respecto al servicio de transporte prestado?</label>
+                <div class="stars">
+                    <input type="radio" id="exp_service_5" name="exp_service" value="5" required>
+                    <label for="exp_service_5">★</label>
+                    <input type="radio" id="exp_service_4" name="exp_service" value="4">
+                    <label for="exp_service_4">★</label>
+                    <input type="radio" id="exp_service_3" name="exp_service" value="3">
+                    <label for="exp_service_3">★</label>
+                    <input type="radio" id="exp_service_2" name="exp_service" value="2">
+                    <label for="exp_service_2">★</label>
+                    <input type="radio" id="exp_service_1" name="exp_service" value="1">
+                    <label for="exp_service_1">★</label>
+                </div>
+
+                <label>¿Tienes algún comentario o recomendación adicional?</label>
+                <textarea required></textarea>
+
+                <button type="button" id="prev4">Anterior</button>
+                <button type="submit" id="next4">Enviar</button>
+            </div>
+
+            <p>Autorización: Con el diligenciamiento de esta encuesta, usted autoriza a Berlinastur S.A. para tratar los
+                datos personales...</p>
+        </form>
+    </div>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+        const nextButtons = document.querySelectorAll('[id^="next"]');
+        const prevButtons = document.querySelectorAll('[id^="prev"]');
+
+        nextButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentSection = document.querySelector('.section.active');
+                let valid = true;
+
+                currentSection.querySelectorAll('input, textarea').forEach(input => {
+                    if (!input.validity.valid) valid = false;
+                });
+
+                if (valid) {
+                    currentSection.classList.remove('active');
+                    currentSection.nextElementSibling.classList.add('active');
+                } else {
+                    alert('Por favor, completa todos los campos.');
+                }
+            });
+        });
+
+        prevButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentSection = document.querySelector('.section.active');
+                currentSection.classList.remove('active');
+                currentSection.previousElementSibling.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
