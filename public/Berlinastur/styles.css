@@ -7,55 +7,26 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin-top: 50% !important;
 }
 
-.form-container {
+.container {
+    background-color: white;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 60vh !important;
-    margin-top: 10rem !important;
+    width: 50%;
 }
 
 .form__group {
     position: relative;
     padding: 15px 0 0;
     margin-top: 10px;
-    margin-left: 30px;
     width: 70%;
   }
 
-.form__titulo{
+.form-container{
     background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-    width: 800px !important;
-    height: 10%;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    margin: 0 auto;
-    padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-    position: relative;
-}
-
-.group{
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-    margin-top: 10px;
-    padding: 20px;
-    width: 800px;
-}
-
-.form-dec{
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    background: rgb(7, 150, 50); 
-    margin: -20px;
-    padding: 0;
-    max-width: 840px;      /* Fondo de color azul */
-    width: 100% !important;     /* Ancho de 250 píxeles */
-    height: 10%;
-    z-index: 999 I !important;
-    position: absolute;  
 }
 
 .form__field {
@@ -72,8 +43,7 @@ body {
     transition: border-color 0.2s;
   
     &::placeholder {
-      color: #3333334b;
-      font-size: 1rem;
+      color: transparent;
     }
   
     &:placeholder-shown ~ .form__label {
@@ -88,7 +58,7 @@ body {
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 1rem;
+    font-size: .6rem;
     color: #9b9b9b;
   }
   
@@ -136,12 +106,6 @@ body {
 h1,
 h2 {
     text-align: center;
-}
-
-h3{
-    font-weight: 50;
-    margin: 30px;
-    font-size: 20px;
 }
 
 .rating {
@@ -205,12 +169,3 @@ button #next1, #next2, #next3, #next4{
 button:hover {
     background: #45a049;
 }
-
-.section {
-    display: none;
-}
-
-.section.active {
-    display: block;
-}
-
